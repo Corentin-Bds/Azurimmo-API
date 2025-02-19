@@ -1,0 +1,82 @@
+package bts.sio.azurimmo.model;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.Date;
+
+import static com.fasterxml.jackson.databind.util.ClassUtil.name;
+
+@Data
+@Entity
+@Table(name = "contrat")
+public class Contrat {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name=("montant_loyer"))
+    private Float montantLoyer;
+
+    @Column(name=("montant_charges"))
+    private Float montantCharges;
+
+    @Column(name=("date_debut"))
+    private Date dateDebut;
+
+    @Column(name=("date_fin"))
+    private Date dateFin;
+
+    @ManyToOne
+    @JoinColumn(name=("appartement_id"))
+    private Appartement appartement;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Float getMontantLoyer() {
+        return montantLoyer;
+    }
+
+    public void setMontantLoyer(Float montantLoyer) {
+        this.montantLoyer = montantLoyer;
+    }
+
+    public Float getMontantCharges() {
+        return montantCharges;
+    }
+
+    public void setMontantCharges(Float montantCharges) {
+        this.montantCharges = montantCharges;
+    }
+
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Appartement getAppartement() {
+        return appartement;
+    }
+
+    public void setAppartement(Appartement appartement) {
+        this.appartement = appartement;
+    }
+}
