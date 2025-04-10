@@ -3,7 +3,7 @@ package bts.sio.azurimmo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import static com.fasterxml.jackson.databind.util.ClassUtil.name;
+
 
 @Data
 @Entity
@@ -25,7 +25,7 @@ public class Appartement {
     @Column(name="description")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "batiment_id")
     private Batiment batiment;
 
