@@ -1,6 +1,8 @@
 package bts.sio.azurimmo.service;
 
+import bts.sio.azurimmo.model.Appartement;
 import bts.sio.azurimmo.model.Contrat;
+import bts.sio.azurimmo.repository.AppartementRepository;
 import bts.sio.azurimmo.repository.ContratRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class ContratService {
 
     @Autowired
     private ContratRepository contratRepository;
+
+    @Autowired
+    private AppartementRepository appartementRepository;
 
     public List<Contrat> getAllContrats() {
         return contratRepository.findAll();
@@ -37,6 +42,13 @@ public class ContratService {
         if (contrat.getId() != null && contrat.getId() == 0) {
             contrat.setId(null);
         }
+
+        // S'assurer que l'appartement est bien lié
+        if (contrat.getAppartement() != null && contrat.getAppartement().getId() != null) {
+            Optional<Appartement> appartement = appartementRepository.findById(contrat.getAppartement().getId());
+            appartement.ifPresent(contrat::setAppartement);
+        }
+
         return contratRepository.save(contrat);
     }
 

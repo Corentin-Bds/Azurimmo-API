@@ -27,7 +27,7 @@ public class ContratController {
     private ContratRepository contratRepository;
 
     //Récupération des contrats
-    @GetMapping("")
+    @GetMapping("/")
     public List<Contrat> getAllContrats() {
         return contratService.getAllContrats();
     }
@@ -37,9 +37,29 @@ public class ContratController {
         return contratService.getContratById(id);
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public Contrat createContrat(@RequestBody Contrat contrat) {
         return contratService.saveContrat(contrat);
+    }
+
+    @PutMapping("/{id}")
+    public Contrat updateContrat(@PathVariable Long id, @RequestBody Contrat contrat) {
+        contrat.setId(id);
+        return contratService.saveContrat(contrat);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteContrat(@PathVariable Long id) {
+        try {
+            boolean deleted = contratService.deleteContrat(id);
+            if (deleted) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(404).body("Contrat introuvable.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Erreur lors de la suppression du contrat : " + e.getMessage());
+        }
     }
 
     @GetMapping("/appartement/{id}")
