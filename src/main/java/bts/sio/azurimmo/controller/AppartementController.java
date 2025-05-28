@@ -10,6 +10,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/appartements")
+@CrossOrigin(origins = {"http://localhost:3000", "http://127.0.0.1:3000"}, methods = {
+        RequestMethod.GET,
+        RequestMethod.POST,
+        RequestMethod.PUT,
+        RequestMethod.DELETE,
+        RequestMethod.OPTIONS,
+        RequestMethod.PATCH
+})
 public class AppartementController {
 
     @Autowired

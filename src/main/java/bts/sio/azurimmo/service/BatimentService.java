@@ -29,4 +29,13 @@ public class BatimentService {
         }
         return batimentRepository.save(batiment);
     }
+
+    public boolean deleteBatiment(int batimentId) {
+        Optional<Batiment> batiment = batimentRepository.findById(batimentId);
+        if (batiment.isPresent()) {
+            batimentRepository.delete(batiment.get());
+            return true;
+        }
+        return false;
+    }
 }

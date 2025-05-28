@@ -5,8 +5,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-import static com.fasterxml.jackson.databind.util.ClassUtil.name;
-
 @Data
 @Entity
 @Table(name = "contrat")
@@ -15,21 +13,25 @@ public class Contrat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name=("montant_loyer"))
+    @Column(name = ("montant_loyer"))
     private Float montantLoyer;
 
-    @Column(name=("montant_charges"))
+    @Column(name = ("montant_charges"))
     private Float montantCharges;
 
-    @Column(name=("date_debut"))
+    @Column(name = ("date_debut"))
     private Date dateDebut;
 
-    @Column(name=("date_fin"))
+    @Column(name = ("date_fin"))
     private Date dateFin;
 
     @ManyToOne
-    @JoinColumn(name=("appartement_id"))
+    @JoinColumn(name = ("appartement_id"))
     private Appartement appartement;
+
+    @ManyToOne
+    @JoinColumn(name = "locataire_id")
+    private Locataire locataire;
 
 
     public Long getId() {
@@ -79,4 +81,13 @@ public class Contrat {
     public void setAppartement(Appartement appartement) {
         this.appartement = appartement;
     }
+
+    public Locataire getLocataire() {
+        return locataire;
+    }
+
+    public void setLocataire(Locataire locataire) {
+        this.locataire = locataire;
+    }
+
 }
