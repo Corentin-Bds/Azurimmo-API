@@ -37,9 +37,8 @@ public class LocataireService {
     // Supprimer un locataire
 
     public boolean deleteLocataire(Long id) {
-        Optional<Locataire> locataire = locataireRepository.findById(id);
-        if (locataire.isPresent()) {
-            locataireRepository.delete(locataire.get());
+        if (locataireRepository.existsById(id)) {
+            locataireRepository.deleteById(id); // suppression en cascade automatique
             return true;
         }
         return false;

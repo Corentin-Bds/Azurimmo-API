@@ -3,6 +3,7 @@ package bts.sio.azurimmo.controller;
 import bts.sio.azurimmo.model.Locataire;
 import bts.sio.azurimmo.service.LocataireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public class LocataireController {
     private LocataireService locataireService;
 
     // lister tous les locataires
-    @GetMapping("")
+    @GetMapping("/")
     public List<Locataire> getAllLocataires() {
         return locataireService.getAllLocataires();
     }
@@ -35,7 +36,7 @@ public class LocataireController {
     }
 
     // Ajouter un locataire
-    @PostMapping("")
+    @PostMapping("/")
     public Locataire createLocataire(@RequestBody Locataire locataire) {
         return locataireService.saveLocataire(locataire);
     }
@@ -49,7 +50,17 @@ public class LocataireController {
 
     // Supprimer un locataire
     @DeleteMapping("/{id}")
-    public boolean deleteLocataire(@PathVariable Long id) {
-        return locataireService.deleteLocataire(id);
+    public ResponseEntity<?> deleteLocataire(@PathVariable Long id) {
+        try {
+            boolean deleted = locataireService.deleteLocataire(id);
+            if (deleted) {
+                return ResponseEntity.ok().build();
+            } else {
+                return ResponseEntity.status(404).body("Locataire introuvable.");
+            }
+        } catch (Exception e) {
+            System.out.println("Erreur suppression locataire ID " + id + " : " + e.getMessage());
+            return ResponseEntity.status(500).body("Erreur lors de la suppression du locataire : " + e.getMessage());
+        }
     }
 }

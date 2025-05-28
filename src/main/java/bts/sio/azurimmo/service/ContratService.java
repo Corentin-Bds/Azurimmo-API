@@ -32,4 +32,20 @@ public class ContratService {
         }
         return null;
     }
+
+    public Contrat saveContrat(Contrat contrat) {
+        if (contrat.getId() != null && contrat.getId() == 0) {
+            contrat.setId(null);
+        }
+        return contratRepository.save(contrat);
+    }
+
+    public boolean deleteContrat(Long id) {
+        Optional<Contrat> contrat = contratRepository.findById(id);
+        if (contrat.isPresent()) {
+            contratRepository.delete(contrat.get());
+            return true;
+        }
+        return false;
+    }
 }

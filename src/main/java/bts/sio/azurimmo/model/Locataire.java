@@ -2,6 +2,8 @@ package bts.sio.azurimmo.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "locataire")
 public class Locataire {
@@ -20,6 +22,9 @@ public class Locataire {
 
     @Column(name = "telephone")
     private String telephone;
+
+    @OneToMany(mappedBy = "locataire", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contrat> contrats;
 
     public Long getId() {
         return id;

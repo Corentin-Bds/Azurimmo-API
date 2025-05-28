@@ -1,8 +1,10 @@
 package bts.sio.azurimmo.controller;
 
 import bts.sio.azurimmo.model.Contrat;
+import bts.sio.azurimmo.repository.ContratRepository;
 import bts.sio.azurimmo.service.ContratService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,8 @@ public class ContratController {
 
     @Autowired
     private ContratService contratService;
+    @Autowired
+    private ContratRepository contratRepository;
 
     //Récupération des contrats
     @GetMapping("")
@@ -33,8 +37,24 @@ public class ContratController {
         return contratService.getContratById(id);
     }
 
+    @PostMapping("")
+    public Contrat createContrat(@RequestBody Contrat contrat) {
+        return contratService.saveContrat(contrat);
+    }
+
     @GetMapping("/appartement/{id}")
     public Contrat getContratByAppartementId(@PathVariable Long id) {
         return contratService.getContratByAppartementId(id);
+    }
+
+    @DeleteMapping("/locataire/{locataireId}")
+    public ResponseEntity<?> deleteContratsByLocataire(@PathVariable Long locataireId) {
+        List<Contrat> contrats = contratRepository.findAllByLocataireId(locataireId);
+        if (!contrats.isEmpty()) {
+            contratRepository.deleteAll(contrats);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(404).body("Aucun contrat trouvé pour ce locataire.");
+        }
     }
 }
