@@ -3,8 +3,6 @@ package bts.sio.azurimmo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-
-
 @Data
 @Entity
 @Table(name = "appartement")
@@ -25,7 +23,8 @@ public class Appartement {
     @Column(name="description")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    // CORRECTION : Retirer CascadeType.REMOVE qui est incorrect pour une relation ManyToOne
+    @ManyToOne
     @JoinColumn(name = "batiment_id")
     private Batiment batiment;
 
@@ -76,5 +75,4 @@ public class Appartement {
     public void setBatiment(Batiment batiment) {
         this.batiment = batiment;
     }
-
 }
