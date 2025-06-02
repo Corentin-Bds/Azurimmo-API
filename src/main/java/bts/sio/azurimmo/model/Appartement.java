@@ -23,7 +23,6 @@ public class Appartement {
     @Column(name="description")
     private String description;
 
-    // CORRECTION : Retirer CascadeType.REMOVE qui est incorrect pour une relation ManyToOne
     @ManyToOne
     @JoinColumn(name = "batiment_id")
     private Batiment batiment;

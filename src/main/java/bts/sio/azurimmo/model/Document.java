@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+
 @Data
 @Entity
 @Table(name = "documents")
@@ -18,6 +19,13 @@ public class Document {
 
     @Column(name = "date_creation")
     private Date dateCreation;
+
+    @Column(name = "nom_agent")
+    private String nomAgent;
+
+    @ManyToOne
+    @JoinColumn(name = "type_document_id")
+    private TypeDocument typeDocument;
 
     public Long getId() {
         return id;
@@ -58,12 +66,4 @@ public class Document {
     public void setTypeDocument(TypeDocument typeDocument) {
         this.typeDocument = typeDocument;
     }
-
-    @Column(name = "nom_agent")
-    private String nomAgent;
-
-    @ManyToOne
-    @JoinColumn(name = "type_document_id")
-    private TypeDocument typeDocument;
-
 }

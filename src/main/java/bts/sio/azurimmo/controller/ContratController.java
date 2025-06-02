@@ -67,10 +67,6 @@ public class ContratController {
         return contratService.getContratByAppartementId(id);
     }
 
-    @GetMapping("/document/{documentId}")
-    public List<Contrat> getContratsByDocumentId(@PathVariable Long documentId) {
-        return contratRepository.findAllByDocumentId(documentId);
-    }
 
     @DeleteMapping("/locataire/{locataireId}")
     public ResponseEntity<?> deleteContratsByLocataire(@PathVariable Long locataireId) {

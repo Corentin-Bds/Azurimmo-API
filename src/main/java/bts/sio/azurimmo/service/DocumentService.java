@@ -21,8 +21,6 @@ public class DocumentService {
     @Autowired
     private DocumentRepository documentRepository;
 
-    private final String uploadDir = "uploads/documents/";
-
     // Récupérer tous les documents d'un contrat
     public List<Document> getDocumentsByContratId(Long contratId) {
         return documentRepository.findByContratId(contratId);

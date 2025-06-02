@@ -3,7 +3,6 @@ package bts.sio.azurimmo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.print.Doc;
 import java.util.Date;
 import java.util.List;
 
@@ -35,18 +34,12 @@ public class Contrat {
     @JoinColumn(name = "locataire_id")
     private Locataire locataire;
 
-    public List<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(List<Document> documents) {
-        this.documents = documents;
-    }
-
-    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    // ✅ CHANGEZ JUSTE CETTE LIGNE (supprimez mappedBy = "document")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "contrat_id") // Indique que la colonne contrat_id est dans la table documents
     private List<Document> documents;
 
-
+    // Tous vos getters/setters restent identiques...
     public Long getId() {
         return id;
     }
@@ -103,4 +96,11 @@ public class Contrat {
         this.locataire = locataire;
     }
 
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
 }
