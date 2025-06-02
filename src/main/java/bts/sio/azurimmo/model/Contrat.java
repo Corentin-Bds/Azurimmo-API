@@ -3,7 +3,9 @@ package bts.sio.azurimmo.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.print.Doc;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -32,6 +34,17 @@ public class Contrat {
     @ManyToOne
     @JoinColumn(name = "locataire_id")
     private Locataire locataire;
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
+    }
+
+    @OneToMany(mappedBy = "document", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Document> documents;
 
 
     public Long getId() {

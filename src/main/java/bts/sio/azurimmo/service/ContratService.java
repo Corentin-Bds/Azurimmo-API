@@ -2,6 +2,7 @@ package bts.sio.azurimmo.service;
 
 import bts.sio.azurimmo.model.Appartement;
 import bts.sio.azurimmo.model.Contrat;
+import bts.sio.azurimmo.model.Document;
 import bts.sio.azurimmo.repository.AppartementRepository;
 import bts.sio.azurimmo.repository.ContratRepository;
 import lombok.Data;
