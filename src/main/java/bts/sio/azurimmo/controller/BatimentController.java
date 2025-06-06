@@ -42,6 +42,7 @@ public class BatimentController {
 
     @PutMapping("/{batimentId}")
     public Batiment updateBatiment(@PathVariable Long batimentId, @RequestBody Batiment batiment) {
+        batiment.setId(batimentId);
         return batimentService.saveBatiment(batiment);
     }
 
